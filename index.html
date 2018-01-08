@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>NLP Project</title>
+	<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
+	<style>
+		
+		.main{
+			margin-top: 100px;
+		}
+		.header{
+			margin-bottom: 50px;
+		}
+	</style>
+
+</head>
+<body>
+<div class="container">
+
+	<div class="row main">
+		<div class="col-md-12 header">
+			<h2>Q&A Closed Domain System</h2>
+		</div>
+		<div class="col-md-12">
+			<div class="form-group">
+			    <label for="asin">ASIN ID:</label>
+			    <input type="text" class="form-control" id="asin">
+			</div>
+			<div class="form-group">
+			    <label for="question">QUESTION:</label>
+			    <input type="text" class="form-control" id="question">
+			</div>
+			<button id="get_answers">GET ANSWERS</button>
+		</div>
+	</div>
+</div>
+
+<script>
+	$('#get_answers').on('click', function(){
+		var asin_id = $('#asin').val();
+		var query = $('#question').val();
+		$.ajax({
+			type: 'POST',
+			url: 'http://localhost:8000/predict',
+			crossDomain: true,
+			dataType: 'JSONP',
+			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+			data: { question: query, asin: asin_id},
+			success: function(response){
+				alert(response);
+			}
+
+		})
+	});
+</script>
+</body>
+</html>
